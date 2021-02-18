@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/welcome.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,18 +12,15 @@ class MyApp extends StatelessWidget {
       title: 'Journal App',
       // took this theme from flutter docs
       theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.purple,
-        accentColor: Colors.grey,
-
-        fontFamily: 'Georgia',
-
-        textTheme: TextTheme(
-          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          headline2: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'), 
-        )
-      ),
+          brightness: Brightness.light,
+          primaryColor: Colors.purple,
+          accentColor: Colors.grey,
+          fontFamily: 'Georgia',
+          textTheme: TextTheme(
+            headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+            headline2: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          )),
       home: MyHomePage(title: 'Journal'),
     );
   }
@@ -38,11 +36,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  bool _showWelcomeWidget;
 
-  void _incrementCounter() {
+  void _toggleShowWelcomeWidget() {
     setState(() {
-      _counter++;
+      _showWelcomeWidget = !_showWelcomeWidget;
     });
   }
 
@@ -57,18 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'showWelcomeWidget is now: ',
             ),
             Text(
-              '$_counter',
+              '$_showWelcomeWidget',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _toggleShowWelcomeWidget,
+        tooltip: 'Add Journal Entry',
         child: Icon(Icons.add),
       ),
     );
