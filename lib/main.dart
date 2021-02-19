@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.grey,
           fontFamily: 'Georgia',
           textTheme: TextTheme(
-            headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            headline2: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            headline2: TextStyle(fontSize: 18.0, fontStyle: FontStyle.italic),
             bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
           )),
       home: MyHomePage(title: 'Journal'),
@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _showWelcomeWidget;
+  bool _showWelcomeWidget = true;
 
   void _toggleShowWelcomeWidget() {
     setState(() {
@@ -54,13 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'showWelcomeWidget is now: ',
-            ),
-            Text(
-              '$_showWelcomeWidget',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            _showWelcomeWidget ? Welcome() : Container(),
           ],
         ),
       ),
