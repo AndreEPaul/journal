@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'widgets/welcome.dart';
+import 'package:journal/widgets/my_home_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  static final routes = {
+    MyHomePage.routeName: (context) => MyHomePage(),
+  };
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,47 +31,6 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
           )),
       home: MyHomePage(title: 'Journal'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool _showWelcomeWidget = true;
-
-  void _toggleShowWelcomeWidget() {
-    setState(() {
-      _showWelcomeWidget = !_showWelcomeWidget;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _showWelcomeWidget ? Welcome() : Container(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _toggleShowWelcomeWidget,
-        tooltip: 'Add Journal Entry',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
