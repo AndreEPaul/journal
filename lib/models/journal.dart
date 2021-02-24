@@ -6,4 +6,8 @@ class Journal {
   addEntry(JournalEntry newEntry) {
     entries.add(newEntry);
   }
+
+  bool isEmpty() {
+    return entries.isEmpty;
+  }
 }
