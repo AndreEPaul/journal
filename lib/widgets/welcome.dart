@@ -7,7 +7,7 @@ class Welcome extends StatelessWidget {
       children: [
       Icon(Icons.book_rounded),
       Text("Welcome to the Journal App!\n"
-          "Please add a journal entry.",
+          "Add a journal entry.",
           style: Theme.of(context).textTheme.headline1),
     ]);
   }
