@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/journal_entry.dart';
+import 'package:journal/models/journal_entry.dart';
 
 class JournalEntryForm extends StatefulWidget {
+  static final routeName = 'form';
+
   @override
   _JournalEntryFormState createState() => _JournalEntryFormState();
 }
