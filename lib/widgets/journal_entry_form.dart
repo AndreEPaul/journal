@@ -9,8 +9,6 @@ class JournalEntryForm extends StatefulWidget {
 }
 
 class _JournalEntryFormState extends State<JournalEntryForm> {
-  final formKey = GlobalKey<FormState>();
-  final journalEntry = JournalEntry();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -88,4 +86,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
               )
             ])));
   }
+
+  final formKey = GlobalKey<FormState>();
+  final journalEntry = JournalEntry();
 }

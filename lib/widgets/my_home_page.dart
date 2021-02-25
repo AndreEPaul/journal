@@ -14,14 +14,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _showWelcomeWidget = true;
-
-  void _toggleShowWelcomeWidget() {
-    setState(() {
-      _showWelcomeWidget = !_showWelcomeWidget;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,5 +34,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  bool _showWelcomeWidget = true;
+
+  void _toggleShowWelcomeWidget() {
+    setState(() {
+      _showWelcomeWidget = !_showWelcomeWidget;
+    });
   }
 }
