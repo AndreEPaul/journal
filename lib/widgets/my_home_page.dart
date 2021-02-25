@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:journal/widgets/welcome.dart';
 
+const DB_PATH = "lib/assets/schema_1.sql.txt";
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 

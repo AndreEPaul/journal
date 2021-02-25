@@ -36,6 +36,45 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
                   }
                 },
               ),
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: 'Body',
+                  border: OutlineInputBorder(),
+                ),
+                onSaved: (value) {
+                  journalEntry.body = value;
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a body';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: 'Rating',
+                  border: OutlineInputBorder(),
+                ),
+                onSaved: (value) {
+                  journalEntry.title = value;
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter a rating (1-4)';
+                  } else if (value != "1" &&
+                      value != "2" &&
+                      value != "3" &&
+                      value != "4") {
+                    return 'Rating must be 1-4';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
