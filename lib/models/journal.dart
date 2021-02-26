@@ -10,4 +10,6 @@ class Journal {
   bool isEmpty() {
     return entries.isEmpty;
   }
+
+  Journal(this.entries);
 }
