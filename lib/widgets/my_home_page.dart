@@ -1,5 +1,18 @@
+import 'dart:core';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:journal/models/journal.dart';
+import 'package:journal/models/journal_entry.dart';
+import 'package:journal/widgets/dark_mode_drawer.dart';
+
 import 'package:journal/widgets/welcome.dart';
+import 'package:journal/widgets/journal_entry_form.dart';
+import 'package:journal/widgets/journal_entry_view.dart';
+
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 const DB_PATH = "lib/assets/schema_1.sql.txt";
 
@@ -14,33 +27,78 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Journal journal;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _showWelcomeWidget ? Welcome() : Container(),
-          ],
+    if (journal.isEmpty()) {
+      return Welcome();
+    } else {
+      return Scaffold(
+        endDrawer: DarkModeDrawer(),
+        appBar: AppBar(title: Text('Journal')),
+        body: journalList(journal),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            showForm(context);
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _toggleShowWelcomeWidget,
-        tooltip: 'Add Journal Entry',
-        child: Icon(Icons.add),
-      ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getJournal();
+  }
+
+  void getJournal() async {
+    String schema = await rootBundle.loadString(DB_PATH);
+    final Database db = await openDatabase('journal.db', version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute(schema);
+    });
+    List<Map> currentJournal = await loadJournalFromDB(db);
+    final entries = currentJournal.map((entry) {
+      return JournalEntry(entry['id'], entry['title'], entry['body'],
+          entry['rating'], DateTime.parse(entry['date']));
+    }).toList();
+    setState(() {
+      journal = Journal(entries);
+    });
+  }
+
+  void showForm(BuildContext context) {
+    Navigator.pushNamed(context, JournalEntryForm.routeName);
+  }
+
+  Future<List<Map>> loadJournalFromDB(db) async {
+    List<Map> dbResult = await db.rawQuery('SELECT * FROM journal_entries');
+    return dbResult;
+  }
+
+  Widget journalList(Journal journal) {
+    const _padding = EdgeInsets.all(5);
+    getJournal();
+    return ListView.builder(
+      padding: _padding,
+      itemCount: journal.entries.length,
+      itemBuilder: (BuildContext context, int idx) {
+        return ListTile(
+          title: Text(journal.entries[idx].title),
+          subtitle: Text((journal.entries[idx].date).toString()),
+          onTap: () {
+            showEntry(context, journal, idx);
+          },
+        );
+      },
     );
   }
 
-  bool _showWelcomeWidget = true;
-
-  void _toggleShowWelcomeWidget() {
-    setState(() {
-      _showWelcomeWidget = !_showWelcomeWidget;
-    });
+  void showEntry(BuildContext context, Journal journal, int idx) {
+    Navigator.pushNamed(context, JournalEntryView.routeName,
+        arguments: {journal, idx});
   }
 }

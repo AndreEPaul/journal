@@ -24,7 +24,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) {
-                  journalEntry.title = value;
+                  entry.title = value;
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -41,7 +41,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) {
-                  journalEntry.body = value;
+                  entry.body = value;
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -58,7 +58,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
                   border: OutlineInputBorder(),
                 ),
                 onSaved: (value) {
-                  journalEntry.title = value;
+                  entry.rating = int.parse(value);
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -88,5 +88,5 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
   }
 
   final formKey = GlobalKey<FormState>();
-  final journalEntry = JournalEntry();
+  JournalEntry entry = JournalEntry(-1, '', '', -1, DateTime.now());
 }
