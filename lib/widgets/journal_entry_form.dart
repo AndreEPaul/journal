@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:journal/models/journal_entry.dart';
+import 'package:sqflite/sqflite.dart';
+
+const DB_PATH = 'lib/assets/schema_1.sql.txt';
 
 class JournalEntryForm extends StatefulWidget {
   static final routeName = 'form';
@@ -75,10 +79,18 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
               ),
               SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
-
+                    String schema = await rootBundle.loadString(DB_PATH);
+                    final Database db = await openDatabase('journal.db',
+                        version: 1, onCreate: (Database db, int version) async {
+                      await db.execute(schema);
+                    });
+                    await db.transaction(((txn) async {
+                      insert(txn);
+                    }));
+                    await db.close();
                     Navigator.of(context).pop();
                   }
                 },
@@ -89,4 +101,10 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
   final formKey = GlobalKey<FormState>();
   JournalEntry entry = JournalEntry(-1, '', '', -1, DateTime.now());
+
+  Future insert(txn) async {
+    await txn.rawInsert(
+        'INSERT INTO journal_entries(title, body, rating, date) VALUES(?,?,?,?)',
+        [entry.title, entry.body, entry.rating, entry.date]);
+  }
 }
