@@ -12,7 +12,6 @@ import 'package:journal/widgets/journal_entry_form.dart';
 import 'package:journal/widgets/journal_entry_view.dart';
 
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 const DB_PATH = "lib/assets/schema_1.sql.txt";
 
@@ -27,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Journal journal;
+  Journal journal = Journal();
 
   @override
   Widget build(BuildContext context) {

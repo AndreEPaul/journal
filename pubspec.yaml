@@ -21,7 +21,6 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  dynamic_theme:
   flutter:
     sdk: flutter
   intl:
@@ -49,7 +48,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - schema_1.sql.txt
+    - lib/assets/schema_1.sql.txt
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

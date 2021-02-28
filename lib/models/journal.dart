@@ -8,8 +8,9 @@ class Journal {
   }
 
   bool isEmpty() {
+    if (entries == null) return true;
     return entries.isEmpty;
   }
 
-  Journal(this.entries);
+  Journal([this.entries]);
 }

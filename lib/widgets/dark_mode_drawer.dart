@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 
 class DarkModeDrawer extends StatefulWidget {
   @override
@@ -31,7 +30,7 @@ class _DarkModeDrawerState extends State<DarkModeDrawer> {
   bool _isDark = false;
 
   bool _getIsDark() {
-    if (DynamicTheme.of(context).brightness == Brightness.dark) {
+    if (Theme.of(context).brightness == Brightness.dark) {
       _isDark = true;
     } else {
       _isDark = false;
@@ -40,11 +39,7 @@ class _DarkModeDrawerState extends State<DarkModeDrawer> {
   }
 
   void toggleDarkMode() {
-    DynamicTheme.of(context).setBrightness(
-        Theme.of(context).brightness == Brightness.dark
-            ? Brightness.light
-            : Brightness.dark);
-    if (DynamicTheme.of(context).brightness == Brightness.dark) {
+    if (Theme.of(context).brightness == Brightness.dark) {
       _isDark = true;
     } else {
       _isDark = false;
