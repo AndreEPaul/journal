@@ -12,5 +12,5 @@ class Journal {
     return entries.isEmpty;
   }
 
-  Journal([this.entries]);
+  Journal(this.entries);
 }

@@ -26,12 +26,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Journal journal = Journal();
+  Journal journal = Journal([]);
 
   @override
   Widget build(BuildContext context) {
-    if (journal.isEmpty()) {
-      return Welcome();
+    if (journal.entries == [] || journal.isEmpty()) {
+      return Column(children: [
+        Welcome(),
+        FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              showForm(context);
+            })
+      ]);
     } else {
       return Scaffold(
         endDrawer: DarkModeDrawer(),
