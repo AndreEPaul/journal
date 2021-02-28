@@ -5,7 +5,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Icon(Icons.book_rounded),
-      Text("Journal", style: Theme.of(context).textTheme.headline1),
+      Text("Journal"),
     ]);
   }
 }
